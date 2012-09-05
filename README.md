@@ -3,6 +3,11 @@ LilFinger
 
 A simple finger-painting app for Android.
 
+License
+=======
+
+LilFinger is distributed under the GPL, v3.0 or later.
+
 Credits
 =======
 
