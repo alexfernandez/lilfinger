@@ -22,6 +22,7 @@ public class PaintingView extends View
 	private Paint paint = new Paint();
 	private Bitmap bitmap;
 	private PointerCoords previous;
+	public boolean empty = true;
 
 	public PaintingView(Context context, AttributeSet attrs, int defStyle)
 	{
@@ -53,6 +54,7 @@ public class PaintingView extends View
 	{
 		this.bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Config.ARGB_8888);
 		this.bitmap.eraseColor(getResources().getColor(R.color.white));
+		this.empty = true;
 		this.invalidate();
 	}
 
@@ -68,7 +70,8 @@ public class PaintingView extends View
 		{
 			this.clear();
 		}
-		Log.i(LOG_TAG, "Painting (" + event.getRawX() + ", " + event.getRawY() + ")");
+		Log.d(LOG_TAG, "Painting (" + event.getRawX() + ", " + event.getRawY() + ")");
+		this.empty = false;
 		Canvas canvas = new Canvas(this.bitmap);
 		if (event.getAction() == MotionEvent.ACTION_DOWN)
 		{

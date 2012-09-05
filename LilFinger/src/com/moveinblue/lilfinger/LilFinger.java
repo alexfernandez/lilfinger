@@ -45,12 +45,11 @@ public class LilFinger extends Activity
 			painting.clear();
 		}
 	};
-
 	private OnClickListener colorChanger = new OnClickListener()
 	{
 		public void onClick(View view)
 		{
-			ColorDrawable background = (ColorDrawable)view.getBackground();
+			ColorDrawable background = (ColorDrawable) view.getBackground();
 			PaintingView painting = (PaintingView) findViewById(R.id.painting);
 			painting.setColor(background.getColor());
 			View marker = findViewById(R.id.marker);
@@ -59,4 +58,16 @@ public class LilFinger extends Activity
 			marker.setLayoutParams(params);
 		}
 	};
+
+	@Override
+	public void onBackPressed()
+	{
+		PaintingView painting = (PaintingView) findViewById(R.id.painting);
+		if (!painting.empty)
+		{
+			painting.clear();
+			return;
+		}
+		finish();
+	}
 }
