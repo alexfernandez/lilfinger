@@ -77,6 +77,10 @@ public class PaintingView extends View
 	 */
 	public boolean save()
 	{
+		if (this.bitmap == null || this.empty)
+		{
+			return false;
+		}
 		return ImageWriter.writeToSD(this.bitmap);
 	}
 
