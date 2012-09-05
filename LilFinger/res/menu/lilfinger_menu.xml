@@ -1,8 +1,13 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_save"
-          android:icon="@drawable/ic_menu_camera"
-          android:showAsAction="always" />
-    <item android:id="@+id/menu_share"
-          android:icon="@drawable/ic_menu_share_holo_light"
-          android:showAsAction="always" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_save"
+        android:icon="@drawable/ic_menu_camera"
+        android:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_share"
+        android:actionProviderClass="android.widget.ShareActionProvider"
+        android:icon="@drawable/ic_menu_share_holo_light"
+        android:showAsAction="always"/>
+
 </menu>

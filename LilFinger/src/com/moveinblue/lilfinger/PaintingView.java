@@ -41,15 +41,19 @@ public class PaintingView extends View
 		super(context);
 		this.init();
 	}
-	public void init()
+
+	private void init()
 	{
 		paint.setStrokeWidth(10);
 		paint.setStyle(Style.STROKE);
 		paint.setAntiAlias(true);
 		paint.setStrokeJoin(Paint.Join.ROUND);
-	    paint.setStrokeCap(Paint.Cap.ROUND);
+		paint.setStrokeCap(Paint.Cap.ROUND);
 	}
 
+	/**
+	 * Clear the bitmap.
+	 */
 	public void clear()
 	{
 		this.bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Config.ARGB_8888);
@@ -58,9 +62,22 @@ public class PaintingView extends View
 		this.invalidate();
 	}
 
+	/**
+	 * Set the drawing color.
+	 * @param color the color as RGB code, not as resource.
+	 */
 	public void setColor(int color)
 	{
 		paint.setColor(color);
+	}
+
+	/**
+	 * Save the current drawing to SD.
+	 * @return true if written.
+	 */
+	public boolean save()
+	{
+		return ImageWriter.writeToSD(this.bitmap);
 	}
 
 	@Override
@@ -124,7 +141,6 @@ public class PaintingView extends View
 	 * @param event specifies the coordinates.
 	 * @param canvas to write on.
 	 */
-
 	private void endTouch(MotionEvent event, Canvas canvas)
 	{
 		this.previous = null;

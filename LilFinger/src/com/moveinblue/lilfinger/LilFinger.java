@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
 public class LilFinger extends Activity
@@ -76,7 +77,13 @@ public class LilFinger extends Activity
 		switch (item.getItemId())
 		{
 		case R.id.menu_save:
-			return true;
+			PaintingView painting = (PaintingView) findViewById(R.id.painting);
+			if (painting.save())
+			{
+				Toast.makeText(this, "Image saved!", Toast.LENGTH_SHORT).show();
+				return true;
+			}
+			return false;
 		case R.id.menu_share:
 			return true;
 		default:
