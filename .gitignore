@@ -1,3 +1,8 @@
 .metadata
 .class
+keystore.properties
+*.swp
+gen
+bin
+
 
