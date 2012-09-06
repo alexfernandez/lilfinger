@@ -18,13 +18,37 @@ public class ImageWriter
 {
 	private static final String LOG_TAG = ImageWriter.class.getSimpleName();
 	private static SimpleDateFormat fileFormat = new SimpleDateFormat("yyyy-MM-dd HHmmss");
+	public static File shared = getFile("shared.png");
 
 	/**
 	 * Write a bitmap to the SD card. Create the folder if necessary.
 	 * @param bitmap the image to store.
-	 * @return true if written, false otherwise.
+	 * @return true if the file was saved.
 	 */
 	public static boolean writeToSD(Bitmap bitmap)
+	{
+		String filename = "lilfinger-" + fileFormat.format(new Date()) + ".png";
+		File destination = getFile(filename);
+		return writeToSD(bitmap, destination);
+	}
+
+	/**
+	 * Write a bitmap to the SD card. Create the folder if necessary.
+	 * @param bitmap the image to store.
+	 * @return true if the file was saved.
+	 */
+	public static boolean shareToSD(Bitmap bitmap)
+	{
+		return writeToSD(bitmap, shared);
+	}
+
+	/**
+	 * Write a bitmap to the SD card. Create the folder if necessary.
+	 * @param bitmap the image to store.
+	 * @param destination the file to write into.
+	 * @return the file into which it was written, or null if not saved.
+	 */
+	public static boolean writeToSD(Bitmap bitmap, File destination)
 	{
 		if (!canWriteOnSD())
 		{
@@ -32,7 +56,6 @@ public class ImageWriter
 		}
 		try
 		{
-			File destination = getFile();
 			Log.d(LOG_TAG, "Storing " + destination.getName());
 			if (!destination.exists())
 			{
@@ -52,27 +75,26 @@ public class ImageWriter
 	}
 
 	/**
+	 * Get the file that corresponds to a URL.
+	 * @param filename for the file.
+	 * @return a file.
+	 */
+	public static File getFile(String filename)
+	{
+		File directory = new File(Environment.getExternalStorageDirectory(), "LilFinger/");
+		if (!directory.exists())
+		{
+			directory.mkdir();
+		}
+		return new File(directory, filename);
+	}
+
+	/**
 	 * Checks whether the app can write on SD card or not
 	 * @return true if the app can write on SD.
 	 */
 	private static boolean canWriteOnSD()
 	{
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
-	}
-
-	/**
-	 * Get the file that corresponds to a URL.
-	 * @param url the URL to use as filename.
-	 * @return a file.
-	 */
-	private static File getFile()
-	{
-		String relativeFile = "lilfinger-" + fileFormat.format(new Date()) + ".png";
-		File directory = new File(Environment.getExternalStorageDirectory(), "LilFinger/");
-		if (!directory.exists())
-		{
-			directory.mkdir();
-		}
-		return new File(directory, relativeFile);
 	}
 }

@@ -4,5 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">LilFinger</string>
+    <string name="save">Save imge</string>
+    <string name="share">Share image</string>
 
 </resources>

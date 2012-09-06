@@ -1,6 +1,7 @@
 package com.moveinblue.lilfinger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -73,7 +74,7 @@ public class PaintingView extends View
 
 	/**
 	 * Save the current drawing to SD.
-	 * @return true if written.
+	 * @return true if written correctly.
 	 */
 	public boolean save()
 	{
@@ -82,6 +83,19 @@ public class PaintingView extends View
 			return false;
 		}
 		return ImageWriter.writeToSD(this.bitmap);
+	}
+
+	/**
+	 * Prepare to share the current drawing.
+	 * @return true if prepared correctly.
+	 */
+	public boolean prepareShare(Intent intent)
+	{
+		if (this.bitmap == null || this.empty)
+		{
+			return false;
+		}
+		return ImageWriter.shareToSD(bitmap);
 	}
 
 	@Override

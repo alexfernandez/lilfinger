@@ -1,8 +1,11 @@
 package com.moveinblue.lilfinger;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -10,12 +13,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.ShareActionProvider;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.ShareActionProvider.OnShareTargetSelectedListener;
+import android.widget.Toast;
 
+/**
+ * I paint with my lil' finger.
+ * @author Alex.
+ */
 public class LilFinger extends Activity
 {
-	@SuppressWarnings("unused")
 	private static final String LOG_TAG = LilFinger.class.getSimpleName();
 
 	@Override
@@ -68,6 +76,26 @@ public class LilFinger extends Activity
 	{
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.lilfinger_menu, menu);
+		ShareActionProvider provider = (ShareActionProvider) menu.findItem(R.id.menu_share).getActionProvider();
+		// Set the default share intent
+		Intent shareIntent = new Intent(Intent.ACTION_SEND);
+		shareIntent.setType("image/*");
+		Uri uri = Uri.fromFile(ImageWriter.shared);
+		shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+		Log.d(LOG_TAG, "Sharing URI: " + uri.toString());
+		provider.setShareIntent(shareIntent);
+		provider.setOnShareTargetSelectedListener(new OnShareTargetSelectedListener()
+		{
+			public boolean onShareTargetSelected(ShareActionProvider source, Intent intent)
+			{
+				PaintingView painting = (PaintingView) findViewById(R.id.painting);
+				if (!painting.prepareShare(intent))
+				{
+					return true;
+				}
+				return false;
+			}
+		});
 		return true;
 	}
 
