@@ -18,7 +18,7 @@ public class ImageWriter
 {
 	private static final String LOG_TAG = ImageWriter.class.getSimpleName();
 	private static SimpleDateFormat fileFormat = new SimpleDateFormat("yyyy-MM-dd HHmmss");
-	public static File shared = getFile("shared.png");
+	public static File shared = getFile("LilFinger.jpg");
 
 	/**
 	 * Write a bitmap to the SD card. Create the folder if necessary.
@@ -27,7 +27,7 @@ public class ImageWriter
 	 */
 	public static boolean writeToSD(Bitmap bitmap)
 	{
-		String filename = "lilfinger-" + fileFormat.format(new Date()) + ".png";
+		String filename = "lilfinger-" + fileFormat.format(new Date()) + ".jpg";
 		File destination = getFile(filename);
 		return writeToSD(bitmap, destination);
 	}
@@ -62,7 +62,7 @@ public class ImageWriter
 				destination.createNewFile();
 			}
 			FileOutputStream out = new FileOutputStream(destination);
-			bitmap.compress(CompressFormat.PNG, 90, out);
+			bitmap.compress(CompressFormat.JPEG, 90, out);
 			out.flush();
 			out.close();
 			return true;
