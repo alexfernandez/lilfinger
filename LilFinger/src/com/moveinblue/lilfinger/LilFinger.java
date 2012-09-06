@@ -80,6 +80,10 @@ public class LilFinger extends Activity
 		// Set the default share intent
 		Intent shareIntent = new Intent(Intent.ACTION_SEND);
 		shareIntent.setType("image/*");
+		String title = "Look at what I painted with my lil' finger!";
+		shareIntent.putExtra(Intent.EXTRA_TITLE, title);
+		shareIntent.putExtra(Intent.EXTRA_TEXT, title);
+		shareIntent.putExtra(Intent.EXTRA_SUBJECT, title);
 		Uri uri = Uri.fromFile(ImageWriter.shared);
 		shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
 		Log.d(LOG_TAG, "Sharing URI: " + uri.toString());
